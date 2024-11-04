@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.login-link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: blue;
+}
+.link {
+  text-decoration: none;
+  color: black;
+}
+.image-icon {
+  cursor: pointer;
+}
+.text1 {
+  border: none;
+  outline: none;
+  padding: 5px 10px;
+  position: relative;
+  left: -10px;
+  color: gray;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+.file-input {
+  display: none;
+}
+#url-img {
+  margin: 0 0 10px;
+}
+.mode {
+  color: whitesmoke;
+  background-color: rgb(18, 18, 18);
+}
