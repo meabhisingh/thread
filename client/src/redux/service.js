@@ -59,7 +59,7 @@ export const serviceApi = createApi({
         url: `user/${id}`,
         method: "GET",
       }),
-      providesTags:['User'],
+      providesTags: ["User"],
       async onQueryStarted(params, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
@@ -112,7 +112,7 @@ export const serviceApi = createApi({
         url: `post?page=${page}`,
         method: "GET",
       }),
-      providesTags: (result, error, args) => {
+      providesTags: (result) => {
         return result
           ? [
               ...result.posts.map(({ _id }) => ({ type: "Post", id: _id })),
@@ -138,7 +138,9 @@ export const serviceApi = createApi({
         try {
           const { data } = await queryFulfilled;
           dispatch(deleteThePost(data));
-        } catch (err) {}
+        } catch (err) {
+          console.log(err);
+        }
       },
     }),
     likePost: builder.mutation({

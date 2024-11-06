@@ -213,11 +213,13 @@ exports.searchUser = async (req, res) => {
 exports.logout = async (req, res) => {
   try {
     res.cookie("token", "", {
-      maxAge: Date.now(),
+      maxAge: 0,
       httpOnly: true,
       sameSite: "none",
       secure: true,
+      partitioned: true,
     });
+
     res.status(201).json({ msg: "You logged out !" });
   } catch (err) {
     res.status(400).json({ msg: "Error in logout" });

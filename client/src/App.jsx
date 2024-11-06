@@ -1,18 +1,16 @@
-import Header from "./components/common/Header";
-import Loading from "./components/common/Loading";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Protected/Home";
-import Search from "./pages/Protected/Search";
-import Error from "./pages/Error";
-import Register from "./pages/Register";
 import { Box } from "@mui/material";
-import ProtectedLayout from "./pages/Protected/ProtectedLayout";
+import { useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Error from "./pages/Error";
+import Home from "./pages/Protected/Home";
 import ProfileLayout from "./pages/Protected/profile/ProfileLayout";
-import Threads from "./pages/Protected/profile/Threads";
 import Replies from "./pages/Protected/profile/Replies";
 import Repost from "./pages/Protected/profile/Repost";
+import Threads from "./pages/Protected/profile/Threads";
+import ProtectedLayout from "./pages/Protected/ProtectedLayout";
+import Search from "./pages/Protected/Search";
 import SinglePost from "./pages/Protected/SinglePost";
-import { useSelector } from "react-redux";
+import Register from "./pages/Register";
 import { useMyInfoQuery } from "./redux/service";
 
 const App = () => {
