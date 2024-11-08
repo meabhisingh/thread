@@ -9,8 +9,8 @@ import Repost from "./pages/Protected/profile/Repost";
 import Threads from "./pages/Protected/profile/Threads";
 import ProtectedLayout from "./pages/Protected/ProtectedLayout";
 import Search from "./pages/Protected/Search";
-import SinglePost from "./pages/Protected/SinglePost";
 import Register from "./pages/Register";
+import SinglePost from "./pages/Protected/SinglePost";
 import { useMyInfoQuery } from "./redux/service";
 
 const App = () => {
