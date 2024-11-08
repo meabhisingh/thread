@@ -21,7 +21,7 @@ const App = () => {
     return (
       <BrowserRouter>
         <Routes>
-          <Route exact path="/sample" element={<div>Sample</div>} />
+          <Route exact path="/sample" element={<h1>Sample</h1>} />
           <Route exact path="/*" element={<Register />} />
         </Routes>
       </BrowserRouter>
