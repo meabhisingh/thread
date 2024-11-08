@@ -1,0 +1,39 @@
+services:
+  client:
+    image: meabhisingh/thread-client
+    container_name: client
+    ports:
+      - "4173:4173"
+    depends_on:
+      - server
+
+  server:
+    image: meabhisingh/thread-server
+    container_name: server
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URI: mongodb://db/Thread
+      PORT: 5000
+      JWT_SECRET: mysecret
+      CLOUD_NAME: mycloudname
+      API_KEY: myapikey
+      API_SECRET: myapisecret
+      CLIENT_URL: http://localhost:4173
+    depends_on:
+      - db
+
+  db:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: admin
+    #   MONGO_INITDB_ROOT_PASSWORD: mypassword
+    volumes:
+      - mongodbdata:/data/db
+
+volumes:
+  mongodbdata:
+    driver: local
