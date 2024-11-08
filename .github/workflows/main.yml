@@ -19,13 +19,17 @@ jobs:
         id: client_changed
         uses: dorny/paths-filter@v3
         with:
-          filters: "client/**"
+          filters: |
+            client:
+             - 'client/**'
 
       - name: Check for changes in server
         id: server_changed
         uses: dorny/paths-filter@v3
         with:
-          filters: "server/**"
+          filters: |
+            server:
+             - 'server/**'
 
   client:
     needs: check-changes
