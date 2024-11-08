@@ -36,13 +36,67 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.check-changes.outputs.client_changed == 'true'
     steps:
-      - name: Nice working
-        run: echo "Client has changed"
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Creating Docker Image
+        run: |
+          cd client
+          docker build -t meabhisingh/thread-client .
+
+      - name: Pushing Docker Image
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+          docker push meabhisingh/thread-client
+          docker logout
+
+      - name: SSH login and Deploy
+        env:
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
+          apt-get update -y
+          apt-get install sshpass
+          sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST
+          'sudo docker pull meabhisingh/thread-client &&
+           cd /root/app &&
+           sudo docker compose up -d --no-deps --build client  && exit'
 
   server:
     needs: check-changes
     runs-on: ubuntu-latest
     if: needs.check-changes.outputs.server_changed == 'true'
     steps:
-      - name: Nice working
-        run: echo "Server has changed"
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Creating Docker Image
+        run: |
+          cd client
+          docker build -t meabhisingh/thread-server .
+
+      - name: Pushing Docker Image
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+          docker push meabhisingh/thread-server
+          docker logout
+
+      - name: SSH login and Deploy
+        env:
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
+          apt-get update -y
+          apt-get install sshpass
+          sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST
+          'sudo docker pull meabhisingh/thread-server &&
+           cd /root/app &&
+           sudo docker compose up -d --no-deps --build server  && exit'
