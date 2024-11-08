@@ -59,9 +59,9 @@ jobs:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
         run: |
-          apt-get update -y
-          apt-get install sshpass
-          sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST
+          sudo apt-get update -y
+          sudo apt-get install sshpass
+          sudo sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST
           'sudo docker pull meabhisingh/thread-client &&
            cd /root/app &&
            sudo docker compose up -d --no-deps --build client  && exit'
@@ -94,9 +94,9 @@ jobs:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
         run: |
-          apt-get update -y
-          apt-get install sshpass
-          sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST
+          sudo apt-get update -y
+          sudo apt-get install sshpass
+          sudo sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST
           'sudo docker pull meabhisingh/thread-server &&
            cd /root/app &&
            sudo docker compose up -d --no-deps --build server  && exit'
